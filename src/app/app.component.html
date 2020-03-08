@@ -1,20 +1,156 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div *ngIf="loading; else view">
+  <loading></loading>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+<ng-template #view>
+
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="bb-1 col pt-5 pb-5 text-center">
+        <h3><strong>Welcome to</strong><br /> {{ title }}</h3>
+      </div>
+    </div> <!-- Close div for .row-->
+
+    <div class="row">
+
+      <div class="col-12 col-sm-6 col-md-3 text-center br-1 bb-1 pt-4 pb-4">
+        <h5 class="mb-4">Biggest property by erf size</h5>
+        <h3>{{ biggestProperty?.erfSize || 0 | number }} m<sup>2</sup></h3>
+        <p>{{ biggestProperty?.companyName }}</p>
+        <button (click)="openPropertyDetails(biggestProperty)" class="btn btn-sm btn-default">view details</button>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-3 text-center br-1 bb-1 pt-4 pb-4">
+        <h5 class="mb-4">Most expensive property bought</h5>
+        <h3>{{ mostExpensiveProperty?.purchasePrice || 0 | currency: 'R ' }}</h3>
+        <p>{{ mostExpensiveProperty?.companyName }}</p>
+        <button (click)="openPropertyDetails(mostExpensiveProperty)" class="btn btn-sm btn-default">view
+          details</button>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-3 text-center br-1 bb-1 pt-4 pb-4">
+        <h5 class="mb-4">Most valuable property by price</h5>
+        <h3>{{ mostValuableProperty?.propertyPrice || 0 | currency: 'R ' }}</h3>
+        <p>{{ mostValuableProperty?.companyName }}</p>
+        <button (click)="openPropertyDetails(mostValuableProperty)" class="btn btn-sm btn-default">view details</button>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-3 text-center bb-1 pt-4 pb-4">
+        <h5 class="mb-4">Property with most improvements</h5>
+        <h3>{{ mostImprovements?.improvements || 0 | currency: 'R ' }}</h3>
+        <p>{{ mostImprovements?.companyName }}</p>
+        <button (click)="openPropertyDetails(mostImprovements)" class="btn btn-sm btn-default">view details</button>
+      </div>
+
+    </div> <!-- Close div for .row -->
+
+    <div class="row">
+
+      <div class="col-12 col-sm-6 br-1 bb-1 pt-4 pb-4">
+
+        <h5 class="text-center mb-4">5 Most expensive properties</h5>
+
+        <ngx-charts-pie-chart
+          [results]="mostExpensiveProperties"
+          scheme="air"
+          legend="true"
+          legendPosition="right"
+          legendTitle="Company Name"
+          (select)="onMostExpensiveSelect($event)">
+
+          <ng-template #tooltipTemplate let-model="model">
+            <span class="tooltip-label">{{ model?.label }}</span>
+            <span class="tooltip-val">{{ model?.value | currency: 'R ' }}</span>
+            <small style="opacity: .5;">Click to view more details</small>
+          </ng-template>
+
+        </ngx-charts-pie-chart>
+      </div>
+
+      <div class="col-12 col-sm-6 bb-1 pt-4 pb-4">
+
+        <h5 class="text-center mb-4">Propery roof types</h5>
+
+        <ngx-charts-pie-chart
+          [results]="roofTypes"
+          scheme="air"
+          legend="true"
+          legendPosition="right"
+          legendTitle="Roof types">
+        </ngx-charts-pie-chart>
+
+      </div>
+
+
+      <div class="col-12 col-sm-6 bb-1 br-1 pt-4 pb-4">
+
+        <h5 class="text-center mb-4">Property Zoning</h5>
+
+        <ngx-charts-pie-chart
+          [results]="zonedProperties"
+          scheme="air"
+          legend="true"
+          legendPosition="right"
+          legendTitle="Zoning">
+        </ngx-charts-pie-chart>
+      </div>
+
+      <div class="col-12 col-sm-6 bb-1 pt-4 pb-4">
+
+        <h5 class="text-center mb-4">Propery types</h5>
+
+        <ngx-charts-pie-chart
+          [results]="propertyType"
+          scheme="air"
+          legend="true"
+          legendPosition="right"
+          legendTitle="Property type">
+        </ngx-charts-pie-chart>
+
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col px-4 mt-5 table-responsive">
+
+        <h5 class="mb-4">Properties</h5>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Company Name</th>
+              <th>Type Description</th>
+              <th>Building Name</th>
+              <th>Zoning</th>
+              <th>Date Acquired</th>
+              <th>Purchase Price</th>
+              <th>Improvements</th>
+              <th>Property Price</th>
+              <th>Property Manager Name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prop of properties" (click)="openPropertyDetails(prop)">
+              <td>{{ prop?.companyName }}</td>
+              <td>{{ prop?.typeDescription }}</td>
+              <td>{{ prop?.buildingName }}</td>
+              <td>{{ prop?.zoning }}</td>
+              <td>{{ prop?.dateAcquired | date: 'dd MMMM yyyy' }}</td>
+              <td>{{ prop?.purchasePrice | currency: 'R ' }}</td>
+              <td>{{ prop?.improvements | currency: 'R ' }}</td>
+              <td>{{ prop?.propertyPrice | currency: 'R ' }}</td>
+              <td>{{ prop?.propertyManagerName }}</td>
+              <td><button class="btn btn-sm btn-primary">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div> <!-- Close div for .col-12 -->
+    </div> <!-- Close div for .row -->
+
+  </div> <!-- Close div for .container -->
+
+</ng-template>

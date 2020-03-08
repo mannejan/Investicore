@@ -1,0 +1,103 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left"><small>Company Name</small><br />{{ property?.companyName }}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body pt-5">
+
+  <div class="row">
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Building name</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.buildingName }}</p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Building description</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.typeDescription }}</p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Zoning</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.zoning }}</p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Roof type</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.roofType }}</p></div>
+
+    <div class="col-12"><hr /></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Address</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right">
+      <p>
+        {{ property?.street }}<br />
+        <span *ngIf="property?.township">{{ property?.township }}<br /></span>
+        <span *ngIf="property?.city">{{ property?.city }}<br /></span>
+        <span *ngIf="property?.postalCode">{{ property?.postalCode }}<br /></span>
+        <span *ngIf="property?.state">{{ property?.state }}<br /></span>
+        {{ property?.country }}
+      </p>
+    </div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Erf number</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.erfNumber }}</p></div>
+
+    <div class="col-12"><hr /></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Erf size</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.erfSize | number }} m<sup>2</sup></p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Gross lettable area</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.grossLettableArea | number }} m<sup>2</sup></p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Gross building area</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.grossBuildingArea | number }} m<sup>2</sup></p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Building footprint</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.buildingFootprint | number }}</p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Electricity supply</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.electricitySupply | number }}</p></div>
+
+    <div class="col-12"><hr /></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Purchase price</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.purchasePrice | currency: 'R ' }}</p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Fair value</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.fairValue | currency: 'R ' }}</p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Improvements</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.improvements | currency: 'R ' }}</p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Property price</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.propertyPrice | currency: 'R ' }}</p></div>
+
+    <div class="col-12"><hr /></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Date acquired</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.dateAcquired | date: 'dd MMMM yyyy' }}</p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Sale date</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.saleDate | date: 'dd MMMM yyyy' }}</p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Sale price</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.salePrice | currency: 'R ' }}</p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Investicore share holding</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.investicoreShareHolding | currency: 'R ' }}</p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Capitalisation rate</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.capitalisationRate }}</p></div>
+
+    <div class="col-12"><hr /></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Property manager ID</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.poropertyManagerId }}</p></div>
+
+    <div class="col-12 col-sm-6"><p><strong class="text-uppercase">Property manager name</strong></p></div>
+    <div class="col-12 col-sm-6 text-left text-sm-right"><p>{{ property?.propertyManager }}</p></div>
+
+
+
+  </div> <!-- Clsoe div for .row -->
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="bsModalRef.hide()">Close</button>
+</div>
