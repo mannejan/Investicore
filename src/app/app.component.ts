@@ -58,11 +58,11 @@ export class AppComponent implements OnInit, OnDestroy {
       (response: HttpResponse<PropertyDto>) => {
         this.properties = response.body;
 
-        this.mostExpensiveProperties = this.properties.sort((a, b) => b.propertyPrice - a.propertyPrice)
-                                                    .splice(0, 5)
-                                                    .map(prop => {
-                                                      return {...prop, 'value': prop.propertyPrice, 'name': prop.companyName}
-                                                    });
+        this.mostExpensiveProperties = [...this.properties].sort((a, b) => b.propertyPrice - a.propertyPrice)
+                                      .map(prop => {
+                                        return {...prop, 'value': prop.propertyPrice, 'name': prop.companyName}
+                                      })
+                                      .splice(0, 5);
 
         let roofTypeSort = this.sortBy(this.properties, 'roofType');
         this.roofTypes = this.mapObject(roofTypeSort);
@@ -73,10 +73,11 @@ export class AppComponent implements OnInit, OnDestroy {
         let typeSort = this.sortBy(this.properties, 'typeDescription');
         this.propertyType = this.mapObject(typeSort);
 
-        this.biggestProperty = this.properties.sort((a, b) => b.erfSize - a.erfSize)[0];
-        this.mostExpensiveProperty = this.properties.sort((a, b) => b.purchasePrice - a.purchasePrice)[0];
-        this.mostValuableProperty = this.properties.sort((a, b) => b.propertyPrice - a.propertyPrice)[0];
-        this.mostImprovements = this.properties.sort((a, b) => b.improvements - a.improvements)[0];
+        this.biggestProperty = [...this.properties].sort((a, b) => b.erfSize - a.erfSize)[0];
+        this.mostExpensiveProperty = [...this.properties].sort((a, b) => b.purchasePrice - a.purchasePrice)[0];
+        this.mostValuableProperty = [...this.properties].sort((a, b) => b.propertyPrice - a.propertyPrice)[0];
+        this.mostImprovements = [...this.properties].sort((a, b) => b.improvements - a.improvements)[0];
+
 
         this.loading = false;
       }
